@@ -1,6 +1,7 @@
 package com.example.authreg_stones
 
 import android.content.Context
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,7 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var secondnametext: EditText
     private lateinit var emailtext: EditText
     private lateinit var passwordtext: EditText
-    private lateinit var savebtn: Button
+    private lateinit var createaccount: Button
+    private lateinit var loginaccount: Button
     private lateinit var db: SQLiteDatabase
 
 
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         secondnametext = findViewById(R.id.editsecondname)
         emailtext = findViewById(R.id.editemailadress)
         passwordtext = findViewById(R.id.editPassword)
+        createaccount = findViewById(R.id.buttoncreateaccount)
+        loginaccount = findViewById(R.id.buttonloginaccount)
 
 
         //Creating our database
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         db.execSQL("CREATE TABLE IF NOT EXISTS users(firstname VARCHAR, seconddname VARCHAR, email VACHAR, password VACHAR )")
 
 
-        savebtn.setOnClickListener {
+        createaccount.setOnClickListener {
 
             val firstnameedt = firstnametext.text.toString().trim()
             val secondnameedt = secondnametext.text.toString().trim()
@@ -45,11 +49,11 @@ class MainActivity : AppCompatActivity() {
 
             //Validate your edit texts
 
-            if(firstnameedt.isEmpty() || secondnameedt.isEmpty() || emailedt.isEmpty() || passwordedt.isEmpty()) {
+            if (firstnameedt.isEmpty() || secondnameedt.isEmpty() || emailedt.isEmpty() || passwordedt.isEmpty()) {
 
-                Toast.makeText(this, "Cannot submit an Empty field", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Created an account", Toast.LENGTH_SHORT).show()
 
-            }else {
+            } else {
 
                 //insert data
 
@@ -58,18 +62,35 @@ class MainActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "User created Successfully", Toast.LENGTH_SHORT).show()
 
-
-
+                var gotologin = Intent(this,login::class.java)
+                startActivity(gotologin)
 
 
             }
 
 
+        }
 
 
 
+
+
+
+
+        loginaccount.setOnClickListener {
+
+            var gotologin= Intent(this, login::class.java)
+            startActivity(gotologin)
 
         }
+
+
     }
 
-}
+
+
+
+    }
+
+
+
